@@ -61,8 +61,9 @@ li {
 }
 
 #profile-content > p {
-  font-size: 5vw;
+  font-size: clamp(36px, 5vw, 70px);
   align-self: center;
+  text-align: center;
   margin-top: 5vh;
 }
 
@@ -78,7 +79,7 @@ li {
 }
 
 #position {
-  font-size: 3vw !important;
+  font-size: clamp(26px, 3vw, 60px) !important;
 }
 
 #foreground {
@@ -90,7 +91,7 @@ li {
 }
 
 .title{
-  font-size: 4vw;
+  font-size: clamp(32px, 4vw, 70px);
   margin: 5vw;
   padding-bottom: 20px;
   border-bottom: solid 2px #0099ff;
@@ -112,10 +113,12 @@ li {
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 10px 1px black inset;
+  font-size: clamp(32px, 4vw, 70px);
+  text-align: center;
 }
 
 .subtitle > p {
-  font-size: 4vw;
+  max-width: 75%;
 }
 
 .description {
@@ -123,6 +126,12 @@ li {
   font-size: clamp(22px, 2vw, 40px);
   perspective: 2px;
   overflow-x: hidden;
+  max-width: 60%;
+}
+
+.description-date {
+  color: gray;
+  font-size: clamp(18px, 1.5vw, 32px);
 }
 
 .description-details {
@@ -133,7 +142,6 @@ li {
   padding-left: 2vw;
   margin-top: 2vw;
   margin-bottom: 2vw;
-  max-width: 60%;
   overflow-y: hidden;
 }
 
@@ -161,6 +169,7 @@ li {
   overflow-x: scroll;
   padding-right: 1vw;
   padding-left: 1vw;
+  overflow-y: hidden;
 }
 
 #fyp {
@@ -218,7 +227,7 @@ li {
   text-align: center;
   border-bottom: solid 1px #0099ff;
   padding-bottom: 10px;
-  margin-bottom: 1vw;
+  margin-bottom: 10px;
   font-size: clamp(20px, 1.5vw, 30px);
 }
 
@@ -309,14 +318,20 @@ li {
 }
 
 #media-links {
-  height: 10vw;
+  height: clamp(75px, 10vw, 900px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 #media-links > img {
-  height: 4vw;
-  filter: drop-shadow(00px 10px 10px black);
+  height: clamp(30px, 4vw, 100px);
+  filter: drop-shadow(0px 10px 10px black);
+  transition-duration: 0.1s;
   cursor: pointer;
+}
+
+#media-links > img:hover {
+  filter: drop-shadow(0px 5px 5px black);
+  transition-duration: 0.1s;
 }
