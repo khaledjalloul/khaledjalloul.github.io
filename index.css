@@ -12,6 +12,11 @@ p, li{
 
 li {
   margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ul {
+  margin: 0;
 }
 
 ::-webkit-scrollbar{
@@ -26,14 +31,14 @@ li {
 }
 
 #wrapper {
-  height: 100vh;
+  height: 100dvh;
   position: relative;
   perspective: 2px;
   overflow-x: hidden;
 }
 
 #header {
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   background-color: white;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/background.jpg');
@@ -43,9 +48,9 @@ li {
 
 #profile {
   position: absolute;
-  height: 75vh;
+  height: 75dvh;
   width: 100vw;
-  top: 60vh;
+  top: 60dvh;
   background-color: transparent;
   transform: translateZ(-2px) scale(2);
   z-index: 1;
@@ -55,7 +60,7 @@ li {
 
 #profile-content {
   width: 100vw;
-  transform: translate(0, -22.5vh);
+  transform: translate(0, -22.5dvh);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -65,14 +70,14 @@ li {
   font-size: clamp(36px, 5vw, 70px);
   align-self: center;
   text-align: center;
-  margin-top: 5vh;
+  margin-top: 5dvh;
 }
 
 #profilePic {
-  height: 45vh;
-  width: 45vh;
+  height: 45dvh;
+  width: 45dvh;
   align-self: center;
-  border-radius: 22.5vh;
+  border-radius: 22.5dvh;
   background-image: url("./assets/profile.jpg");
   background-size: cover;
   box-shadow: 0px 0px 30px 0.5px #000000;
@@ -86,7 +91,7 @@ li {
 #foreground {
   position: absolute;
   width: 100vw;
-  top: 100vh;
+  top: 100dvh;
   background-color: #242424;
   z-index: 2;
 }
@@ -105,7 +110,7 @@ li {
 }
 
 #lau_subtitle, #bmw_subtitle, #dox_subtitle {
-  height: 50vh;
+  height: 50dvh;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -123,7 +128,10 @@ li {
 }
 
 .description {
-  margin: 5vw;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
   font-size: clamp(22px, 2vw, 40px);
   perspective: 2px;
   overflow-x: hidden;
@@ -161,7 +169,7 @@ li {
 }
 
 #projects { 
-  height: 50vh;
+  height: 50dvh;
   background-color: #373737;
   align-items: center;
   justify-content: start;
@@ -198,8 +206,8 @@ li {
 }
 
 .project {
-  height: 40vh;
-  max-height: 40vh;
+  height: 40dvh;
+  max-height: 40dvh;
   aspect-ratio: 1;
   background-color: #242424;
   background-size: cover;
@@ -229,12 +237,12 @@ li {
   border-bottom: solid 1px #0099ff;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  font-size: clamp(16px, 3.3vh, 30px);
+  font-size: clamp(16px, 3.3dvh, 30px);
 }
 
 .project-description {
   text-align: center;
-  font-size: clamp(12px, 2.5vh, 25px);
+  font-size: clamp(12px, 2.5dvh, 25px);
 
 }
 
@@ -257,8 +265,8 @@ li {
   width: 4vw;
   right: 0;
   background-color: #373737;
-  border-top-left-radius: 7vh;
-  border-bottom-left-radius: 7vh;
+  border-top-left-radius: 7dvh;
+  border-bottom-left-radius: 7dvh;
   box-shadow: -3px 0px 5px black;
   cursor: pointer;
   z-index: 3;
@@ -275,8 +283,8 @@ li {
   width: 4vw;
   left: 0;
   background-color: #373737;
-  border-top-right-radius: 7vh;
-  border-bottom-right-radius: 7vh;
+  border-top-right-radius: 7dvh;
+  border-bottom-right-radius: 7dvh;
   box-shadow: 3px 0px 5px black;
   cursor: pointer;
   display: none;
@@ -294,11 +302,8 @@ li {
   filter: drop-shadow(0px 0px 10px black);
 }
 
-#footer {
-  min-height: 20vh;
-}
-
 #footer > .title {
+  margin-top: 3vw;
   margin-bottom: 0;
 }
 
