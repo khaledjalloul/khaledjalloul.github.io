@@ -22,6 +22,7 @@ li {
 
 ::-webkit-scrollbar-thumb{
   background-color: #0099ff;
+  border-radius: 5px;
 }
 
 #wrapper {
@@ -162,7 +163,6 @@ li {
 #projects { 
   height: 50vh;
   background-color: #373737;
-  display: flex;
   align-items: center;
   justify-content: start;
   box-shadow: 0px 0px 10px 1px black inset;
@@ -170,6 +170,7 @@ li {
   padding-right: 1vw;
   padding-left: 1vw;
   overflow-y: hidden;
+  display: none;
 }
 
 #fyp {
@@ -291,6 +292,10 @@ li {
 
 #scrollRight > i:hover, #scrollLeft > i:hover{
   filter: drop-shadow(0px 0px 10px black);
+}
+
+#footer {
+  min-height: 20vh;
 }
 
 #footer > .title {

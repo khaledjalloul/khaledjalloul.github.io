@@ -75,12 +75,17 @@ setInterval(() => {
 }, 10);
 
 window.addEventListener("load", (event) => {
+  projects.style.display = "flex"; // Load project gifs
+
   setLogoPositions();
+
   var animatedElements = getTextElements();
   fadeInElements(animatedElements);
+
   wrapper.addEventListener("scroll", (event) =>
     fadeInElements(animatedElements)
   );
+
   scrollRight.addEventListener(
     "mousedown",
     () => (enableProjectScroll = "right")
@@ -99,4 +104,5 @@ window.addEventListener("load", (event) => {
     () => (enableProjectScroll = "none")
   );
 });
+
 window.addEventListener("resize", setLogoPositions);
