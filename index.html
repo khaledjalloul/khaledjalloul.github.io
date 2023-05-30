@@ -14,7 +14,7 @@
     <script src="./index.js" type="text/javascript"></script>
   </head>
 
-  <body id="buf">
+  <body>
     <div id="wrapper">
       <div id="header"></div>
       <div id="lau_logo" class="logo">
@@ -29,8 +29,9 @@
       <div id="profile">
         <div id="profile-content">
           <div id="profilePic"></div>
+          <div id="loading"></div>
           <p id="name">Khaled Jalloul</p>
-          <p id="position">Senior Computer Engineering Student</p>
+          <p id="position">Computer Engineer</p>
         </div>
       </div>
       <div id="foreground">
@@ -43,7 +44,7 @@
           <p class="description-date">2018 - 2023</p>
           <div class="description-details">
             <ul style="list-style-type: disc;">
-              <li>CGPA: 3.9/4.0</li>
+              <li>CGPA: 3.91/4.0</li>
               <li>
                 Awarded the School of Engineering's Full Merit Scholarship
               </li>
@@ -97,7 +98,7 @@
             </ul>
           </div>
         </div>
-        <p id="pls" class="title">Personal Projects</p>
+        <p id="pls" class="title">Projects</p>
         <div id="projects">
           <div id="scrollLeft">
             <i class="material-icons">arrow_back_ios</i>
@@ -119,15 +120,28 @@
             </div>
           </div>
           <div
-            id="gazebo-simulation"
+            id="robocop"
             class="project"
-            onclick="window.open('https://github.com/khaledjalloul/gazebo-simulation_ros', '_blank');"
+            onclick="window.open('https://github.com/Charbel199/robocop', '_blank');"
           >
             <div>
-              <p class="project-title">ROS Control Gazebo Simulation</p>
+              <p class="project-title">RoboCop</p>
               <p class="project-description">
-                Gazebo simulation that automates a pre‐modeled robotic arm using
-                ROS Control.
+                Autonomous rover that chases a speeding car using object
+                detection, ROS, and fuzzy logic.
+              </p>
+            </div>
+          </div>
+          <div
+            id="sketch-follower"
+            class="project"
+            onclick="window.open('https://github.com/khaledjalloul/sketch-follower_ros', '_blank');"
+          >
+            <div>
+              <p class="project-title">Sketch Follower</p>
+              <p class="project-description">
+                A 2-DOF robot arm Gazebo simulation that mimics a drawn sketch
+                using Moveit for inverse kinematics.
               </p>
             </div>
           </div>
@@ -199,7 +213,7 @@
                 onclick="window.open('https://www.linkedin.com/in/khaledjalloul/', '_blank');"
               />
               <img
-                src="./assets/github.png"
+                src="./assets/github-white.png"
                 onclick="window.open('https://github.com/khaledjalloul', '_blank');"
               />
             </div>

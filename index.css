@@ -84,13 +84,29 @@ ul {
   opacity: 0;
 }
 
+@keyframes loading {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+#loading {
+  height: 45dvh !important;
+  width: 45dvh !important;
+  position: absolute;
+  top: 0;
+  align-self: center;
+  border-radius: 22.5dvh;
+  border-top: solid 5px #0099ff;
+  animation: loading 1.5s linear infinite;
+}
+
 #position {
   font-size: clamp(26px, 3vw, 60px) !important;
 }
 
 #foreground {
   position: absolute;
-  width: 100vw;
+  width: 100dvw;
   top: 100dvh;
   background-color: #242424;
   z-index: 2;
@@ -186,8 +202,13 @@ ul {
   background-position: right;
 }
 
-#gazebo-simulation {
-  background-image: url("./assets/projects/gazebo-simulation.gif");
+#robocop {
+  background-image: url("./assets/projects/robocop.gif");
+}
+
+#sketch-follower {
+  background-image: url("./assets/projects/sketch-follower.gif");
+  background-position: right;
 }
 
 #snake-game {

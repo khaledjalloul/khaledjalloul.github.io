@@ -60,6 +60,7 @@ function fadeInElements(animatedElements) {
 
 // Show/hide horizontal scroll buttons and scroll on mouse hold
 var enableProjectScroll = "none";
+
 setInterval(() => {
   if (enableProjectScroll === "right") {
     projects.scrollLeft = projects.scrollLeft + 10;
@@ -76,6 +77,7 @@ setInterval(() => {
 
 window.addEventListener("load", (event) => {
   projects.style.display = "flex"; // Load project gifs
+  loading.style.display = "none";
 
   setLogoPositions();
 
