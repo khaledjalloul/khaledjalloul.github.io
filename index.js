@@ -58,25 +58,58 @@ function fadeInElements(animatedElements) {
   });
 }
 
-// Show/hide horizontal scroll buttons and scroll on mouse hold
-var enableProjectScroll = "none";
-
-setInterval(() => {
-  if (enableProjectScroll === "right") {
-    projects.scrollLeft = projects.scrollLeft + 10;
-  } else if (enableProjectScroll === "left") {
-    projects.scrollLeft = projects.scrollLeft - 10;
-  }
-  if (projects.scrollLeft !== 0) scrollLeft.style.display = "flex";
-  else scrollLeft.style.display = "none";
-
-  if (projects.scrollLeft + window.innerWidth + 1 >= projects.scrollWidth)
-    scrollRight.style.display = "none";
-  else scrollRight.style.display = "flex";
-}, 10);
-
+const projectList = [
+  {
+    id: "fyp",
+    title: "Senior Year Project: FLYSMART",
+    link: "https://github.com/HalaSaadeh/flysmart-ar-app",
+    tags: ["Robotics", "Arduino", "AR", "Unity"],
+    description:
+      "Wearable glove that controls a drone in an Augmented Reality environment using hand gestures.",
+  },
+  {
+    id: "robocop",
+    title: "RoboCop",
+    link: "https://github.com/Charbel199/robocop",
+    tags: ["Robotics", "Raspberry Pi", "ML", "Fuzzy Logic"],
+    description:
+      "Autonomous rover that chases a speeding car using object detection, ROS, and fuzzy logic.",
+  },
+  {
+    id: "sketch-follower",
+    title: "Sketch Follower",
+    link: "https://github.com/khaledjalloul/sketch-follower_ros",
+    tags: ["Robotics", "Gazebo", "Moveit", "C++"],
+    description:
+      "A 2-DOF robot arm Gazebo simulation that mimics a drawn sketch using Moveit for inverse kinematics.",
+  },
+  {
+    id: "snake-game",
+    title: "ReactJS Snake Game",
+    link: "https://github.com/khaledjalloul/snake-game_react",
+    tags: ["ReactJS", "Path Finding"],
+    description:
+      "The classic snake game recreated in ReactJS with an autosolve feature.",
+  },
+  {
+    id: "firefighter-robot",
+    title: "Firefighter Robot",
+    link: "https://github.com/khaledjalloul/mce-rover-project",
+    tags: ["Robotics", "Raspberry Pi"],
+    description:
+      "Four-wheel robot that detects a fire using heat sensors and attempts to put it out.",
+  },
+  {
+    id: "khedne-maak",
+    title: "University Carpooling Mobile Application",
+    link: "https://github.com/hadiyouness10/drives_frontend",
+    tags: ["React Native", "ExpressJS", "Google Maps API"],
+    description:
+      "React Native mobile app that allows students to organize or join rides to their universities.",
+  },
+];
 window.addEventListener("load", (event) => {
-  projects.style.display = "flex"; // Load project gifs
+  projects.style.display = "grid"; // Load project gifs
   loading.style.display = "none";
 
   setLogoPositions();
@@ -88,23 +121,39 @@ window.addEventListener("load", (event) => {
     fadeInElements(animatedElements)
   );
 
-  scrollRight.addEventListener(
-    "mousedown",
-    () => (enableProjectScroll = "right")
-  );
-  scrollLeft.addEventListener("mousedown", () => {
-    if (projects.scrollLeft !== 0) enableProjectScroll = "left";
+  const projectTitle = document.getElementById("project-title");
+  const projectTags = document.getElementById("project-tags");
+  const projectDescription = document.getElementById("project-description");
+
+  projectList.forEach((project) => {
+    const projectDiv = document.createElement("div");
+    projectDiv.setAttribute("id", project.id);
+    projectDiv.className = "project";
+    projectDiv.setAttribute(
+      "onclick",
+      `window.open('${project.link}', '_blank');`
+    );
+
+    projectDiv.addEventListener("mouseover", () => {
+      projectTitle.innerText = project.title;
+      projectDescription.innerText = project.description;
+
+      projectTags.innerHTML = project.tags.map(
+        (tag) => `<p class="project-tag" style="opacity: 1">${tag}</p>`
+      );
+    });
+
+    projects.appendChild(projectDiv);
   });
-  scrollRight.addEventListener("mouseup", () => (enableProjectScroll = "none"));
-  scrollLeft.addEventListener("mouseup", () => (enableProjectScroll = "none"));
-  scrollRight.addEventListener(
-    "mouseleave",
-    () => (enableProjectScroll = "none")
-  );
-  scrollLeft.addEventListener(
-    "mouseleave",
-    () => (enableProjectScroll = "none")
-  );
+
+  projectList[0].tags.forEach((tag) => {
+    const tagP = document.createElement("p");
+    tagP.className = "project-tag";
+    tagP.innerHTML = tag;
+
+    projectTags.appendChild(tagP);
+    animatedElements.push({ element: tagP, animated: false });
+  });
 });
 
 window.addEventListener("resize", setLogoPositions);

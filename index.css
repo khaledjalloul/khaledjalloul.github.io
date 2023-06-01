@@ -114,7 +114,10 @@ ul {
 
 .title{
   font-size: clamp(32px, 4vw, 70px);
-  margin: 5vw;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
   padding-bottom: 20px;
   border-bottom: solid 2px #0099ff;
 }
@@ -146,12 +149,12 @@ ul {
 .description {
   margin-top: 3vw;
   margin-bottom: 3vw;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
   font-size: clamp(22px, 2vw, 40px);
   perspective: 2px;
   overflow-x: hidden;
-  max-width: 60%;
+  max-width: 50%;
 }
 
 .description-date {
@@ -174,7 +177,7 @@ ul {
   position: fixed;
   width: 10vw;
   opacity: 0;
-  right: 4vw;
+  right: 10vw;
   transform: translateZ(-0.5px) scale(4);
   z-index: 3;
 }
@@ -184,17 +187,24 @@ ul {
   filter: drop-shadow(0px 10px 10px black);
 }
 
-#projects { 
-  height: 50dvh;
+#projects-container {
+  height: 35dvw;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
   background-color: #373737;
-  align-items: center;
-  justify-content: start;
+  align-items: start;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
   box-shadow: 0px 0px 10px 1px black inset;
-  overflow-x: scroll;
-  padding-right: 1vw;
-  padding-left: 1vw;
-  overflow-y: hidden;
+}
+
+#projects {
   display: none;
+  margin-left: 10vw;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: auto auto auto;
 }
 
 #fyp {
@@ -227,44 +237,16 @@ ul {
 }
 
 .project {
-  height: 40dvh;
-  max-height: 40dvh;
+  height: 15dvw;
+  max-height: 15dvw;
   aspect-ratio: 1;
   background-color: #242424;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin-right: 1vw;
-  margin-left: 1vw;
+  margin: 1vw;
   box-shadow: 0px 0px 10px black;
   transition-duration: 0.3s;
-}
-
-.project > div {
-  opacity: 0;
-  height: 100%;
-  width: 80%;
-  background-color: #242424e8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-left: 10%;
-  padding-right: 10%;
-}
-
-.project-title {
-  text-align: center;
-  border-bottom: solid 1px #0099ff;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  font-size: clamp(16px, 3.3dvh, 30px);
-}
-
-.project-description {
-  text-align: center;
-  font-size: clamp(12px, 2.5dvh, 25px);
-
 }
 
 .project:hover {
@@ -273,54 +255,59 @@ ul {
   transition-duration: 0.3s;
 }
 
-.project:hover > div {
-  transition-duration: 0.2s;
-  opacity: 1;
-}
-
-#scrollRight {
-  position: absolute;
-  min-height: 65px;
-  min-width: 65px;
-  height: 4vw;
-  width: 4vw;
-  right: 0;
-  background-color: #373737;
-  border-top-left-radius: 7dvh;
-  border-bottom-left-radius: 7dvh;
-  box-shadow: -3px 0px 5px black;
-  cursor: pointer;
-  z-index: 3;
+#project-details {
+  box-sizing: border-box;
+  min-width: 20vw;
+  width: 40%;
+  max-width: 40%;
+  height: calc(100% - 2dvw);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  background-color: #242424;
+  margin: 1dvw;
+  margin-right: 10vw;
+  margin-left: 2vw;
+  padding: 3vw;
+  box-shadow: 0px 0px 10px black;
 }
 
-#scrollLeft {
-  position: absolute;
-  min-height: 65px;
-  min-width: 65px;
-  height: 4vw;
-  width: 4vw;
-  left: 0;
+#project-title {
+  text-align: center;
+  border-bottom: solid 1px #0099ff;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: clamp(28px, 3.7dvh, 32px);
+}
+
+#project-tags {
+  display: flex;
+  justify-content: center;
+  min-height: 1vw;
+  margin-top: 0.5vw;
+  margin-bottom: 1vw;
+  flex-wrap: wrap;
+}
+
+.project-tag {
+  padding: 0.5vw;
+  padding-left: 0.7vw;
+  padding-right: 0.7vw;
+  margin-right: 0.1vw;
+  margin-left: 0.1vw;
+  margin-top: 0.3vw;
+  margin-bottom: 0.3vw;
+  border-radius: 1vw;
+  word-wrap: break-word;
+  white-space: nowrap;
+  vertical-align: middle;
   background-color: #373737;
-  border-top-right-radius: 7dvh;
-  border-bottom-right-radius: 7dvh;
-  box-shadow: 3px 0px 5px black;
-  cursor: pointer;
-  display: none;
-  z-index: 3;
-  align-items: center;
-  justify-content: center;
+  color: white;
+  font-size: 16px;
 }
 
-#scrollRight > i, #scrollLeft > i {
-  font-size: clamp(24px, 3vw, 40px);
-  color: #0099ff;
-}
-
-#scrollRight > i:hover, #scrollLeft > i:hover{
-  filter: drop-shadow(0px 0px 10px black);
+#project-description {
+  text-align: center;
+  font-size: clamp(18px, 2.5dvh, 24px);
 }
 
 #footer > .title {
@@ -329,9 +316,10 @@ ul {
 }
 
 #footer-content {
-  margin: 5vw;
   margin-top: 2.5vw;
   margin-bottom: 2vw;
+  margin-right: 10vw;
+  margin-left: 10vw;
   font-size: clamp(16px, 1.5vw, 30px);
   display: flex;
   justify-content: space-between;
