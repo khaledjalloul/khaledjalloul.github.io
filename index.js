@@ -108,10 +108,16 @@ const projectList = [
       "React Native mobile app that allows students to organize or join rides to their universities.",
   },
 ];
+
+var currentUI = "large";
+var currentProjectDiv = null;
+
 window.addEventListener("load", (event) => {
   projects.style.display = "grid"; // Load project gifs
   loading.style.display = "none";
+  wrapper.style.overflowX = "hidden";
 
+  if (window.innerWidth <= 800) currentUI = "small";
   setLogoPositions();
 
   var animatedElements = getTextElements();
@@ -129,10 +135,12 @@ window.addEventListener("load", (event) => {
     const projectDiv = document.createElement("div");
     projectDiv.setAttribute("id", project.id);
     projectDiv.className = "project";
-    projectDiv.setAttribute(
-      "onclick",
-      `window.open('${project.link}', '_blank');`
-    );
+
+    if (window.innerWidth > 800)
+      projectDiv.setAttribute(
+        "onclick",
+        `window.open('${project.link}', '_blank');`
+      );
 
     projectDiv.addEventListener("mouseover", () => {
       projectTitle.innerText = project.title;
@@ -143,9 +151,29 @@ window.addEventListener("load", (event) => {
       );
     });
 
+    // Require double pressing to redirect when on mobile
+    projectDiv.addEventListener("click", () => {
+      projectTitle.innerText = project.title;
+      projectDescription.innerText = project.description;
+
+      projectTags.innerHTML = project.tags.map(
+        (tag) => `<p class="project-tag" style="opacity: 1">${tag}</p>`
+      );
+
+      if (window.innerWidth <= 800 && currentProjectDiv !== projectDiv) {
+        if (currentProjectDiv) currentProjectDiv.removeAttribute("onclick");
+        currentProjectDiv = projectDiv;
+        projectDiv.setAttribute(
+          "onclick",
+          `window.open('${project.link}', '_blank');`
+        );
+      }
+    });
+
     projects.appendChild(projectDiv);
   });
 
+  // Display first project's tags
   projectList[0].tags.forEach((tag) => {
     const tagP = document.createElement("p");
     tagP.className = "project-tag";
@@ -153,6 +181,26 @@ window.addEventListener("load", (event) => {
 
     projectTags.appendChild(tagP);
     animatedElements.push({ element: tagP, animated: false });
+  });
+
+  // Remove onclick attribute from projects when on mobile
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 800 && currentUI === "large") {
+      currentUI = "small";
+      const projectDivs = document.getElementsByClassName("project");
+      Array.from(projectDivs).forEach((projectDiv, index) => {
+        projectDiv.removeAttribute("onclick");
+      });
+    } else if (window.innerWidth > 800 && currentUI === "small") {
+      currentUI = "large";
+      const projectDivs = document.getElementsByClassName("project");
+      Array.from(projectDivs).forEach((projectDiv, index) => {
+        projectDiv.setAttribute(
+          "onclick",
+          `window.open('${projectList[index].link}', '_blank');`
+        );
+      });
+    }
   });
 });
 

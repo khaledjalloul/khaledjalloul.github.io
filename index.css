@@ -34,7 +34,7 @@ ul {
   height: 100dvh;
   position: relative;
   perspective: 2px;
-  overflow-x: hidden;
+  overflow-x: visible;
 }
 
 #header {
@@ -193,7 +193,7 @@ ul {
   display: flex;
   justify-content: space-between;
   background-color: #373737;
-  align-items: start;
+  align-items: center;
   padding-top: 1vw;
   padding-bottom: 1vw;
   box-shadow: 0px 0px 10px 1px black inset;
@@ -244,7 +244,7 @@ ul {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin: 1vw;
+  margin: 1dvw;
   box-shadow: 0px 0px 10px black;
   transition-duration: 0.3s;
 }
@@ -263,6 +263,7 @@ ul {
   height: calc(100% - 2dvw);
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: #242424;
   margin: 1dvw;
   margin-right: 10vw;
@@ -276,7 +277,7 @@ ul {
   border-bottom: solid 1px #0099ff;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  font-size: clamp(28px, 3.7dvh, 32px);
+  font-size: clamp(20px, 2dvw, 32px);
 }
 
 #project-tags {
@@ -302,12 +303,29 @@ ul {
   vertical-align: middle;
   background-color: #373737;
   color: white;
-  font-size: 16px;
+  font-size: clamp(12px, 1dvw, 16px);
 }
 
 #project-description {
   text-align: center;
-  font-size: clamp(18px, 2.5dvh, 24px);
+  font-size: clamp(14px, 1.2dvw, 24px);
+}
+
+#project-details-tips {
+  margin-top: auto;
+  font-size: clamp(12px, 1.2dvw, 16px);
+}
+
+#project-details-tips > p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  color: grey;
+}
+
+#project-details-tips > p > i {
+  margin-right: 10px;
 }
 
 #footer > .title {
@@ -353,4 +371,126 @@ ul {
 #media-links > img:hover {
   filter: drop-shadow(0px 5px 5px black);
   transition-duration: 0.1s;
+}
+
+
+@media only screen and (max-width: 800px) {
+  #profilePic {
+    height: min(75dvw, 40vh);
+    width: min(75dvw, 40vh);
+    border-radius: min(37.5dvw, 20vh);
+  }
+
+  #profile-content {
+    justify-content: center;
+  }
+
+  #loading {
+    height: 75dvw !important;
+    width: 75dvw !important;
+    border-radius: 37.5dvw;
+    top: 4vh;
+  }
+
+  .title {
+    margin-top: 7vh;
+    margin-bottom: 7vh;
+  }
+  
+  #lau_subtitle, #bmw_subtitle, #dox_subtitle {
+    height: 40dvh;
+  }
+
+  .description {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+  }
+
+  .description-date {
+    margin-top: 1vh;
+    color: gray;
+    font-size: clamp(18px, 1.5vw, 32px);
+  }
+
+  #projects-container {
+    min-height: 35dvw;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #projects {
+    margin-left: 0;
+    padding-top: 1vh;
+    grid-template-columns: auto auto;
+  }
+
+  .project {
+    height: 40dvw;
+    max-height: 40dvw;
+    margin: 2vw;
+  }
+
+  #project-details {
+    margin: 2vh;
+    width: calc(100% - 4vh);
+    max-width: calc(100% - 4vh);
+    height: auto;
+    padding: 3vh;
+  }
+  
+  #project-title {
+    font-size: clamp(18px, 3dvh, 24px);
+  }
+
+  #project-tags {
+    margin-bottom: 2vh;
+  }
+
+  .project-tag {
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin-top: 0.3vh;
+    margin-bottom: 0.3vh;
+    margin-right: 0.3vh;
+    margin-left: 0.3vh;
+    font-size: 14px;
+    border-radius: 5vh;
+  }
+  
+  #project-description {
+    font-size: clamp(16px, 2.2dvh, 20px);
+  }
+
+  #project-details-tips {
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    justify-content: space-around;
+  }
+
+  #project-details-tips > p {
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+  }
+
+  #footer > .title {
+    margin-top: 3vh;
+  }
+
+  #contact-info > p {
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+  }
+  
+  #media-links {
+    height: clamp(75px, 13vh, 900px);
+    justify-content: space-around;
+  }
+
+  #media-links > img {
+    height: clamp(30px, 4vh, 200px);
+  }
 }
