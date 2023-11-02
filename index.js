@@ -154,7 +154,6 @@ const createExperiencesEffect = () => {
       );
       const listChildren = mainExperience.getElementsByTagName("ul");
       for (const child of listChildren) {
-        console.log(child);
         child.animate(
           [
             {
@@ -360,8 +359,29 @@ const displayProjects = () => {
 window.addEventListener("load", (event) => {
   var fadeInElements = getFadeInElements();
   fadeIn(fadeInElements);
+  window.addEventListener("scroll", (event) => fadeIn(fadeInElements));
   wrapper.addEventListener("scroll", (event) => fadeIn(fadeInElements));
 
   createExperiencesEffect();
   displayProjects();
+});
+
+window.addEventListener("resize", () => {
+  const experiences = document.getElementsByClassName("experience");
+
+  if (window.innerWidth < 992) {
+    for (const mainExperience of experiences) {
+      mainExperience.animate([{ width: "100%" }], {
+        duration: 10,
+        fill: "both",
+      });
+    }
+  } else {
+    for (const mainExperience of experiences) {
+      mainExperience.animate([{ width: `${100 / experiences.length}%` }], {
+        duration: 10,
+        fill: "both",
+      });
+    }
+  }
 });
