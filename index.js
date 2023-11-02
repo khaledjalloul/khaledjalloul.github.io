@@ -1,42 +1,26 @@
-// Place logos in the center of their divs
-function setLogoPositions(event) {
-  var pairs = [
-    { logo: lau_logo, description: lau_description },
-    { logo: dox_logo, description: dox_description },
-    { logo: bmw_logo, description: bmw_description },
-  ];
-  pairs.forEach((pair) => {
-    pair.logo.style.opacity = 1;
-    var dim = pair.description.getBoundingClientRect();
-    pair.logo.style.top =
-      dim.top +
-      wrapper.scrollTop +
-      (dim.bottom - dim.top) / 2 -
-      pair.logo.offsetHeight / 2;
-  });
-}
-
-// Store all text elements to fade them in
-function getTextElements() {
+const getFadeInElements = () => {
   var paragraphs = document.getElementsByTagName("p");
   var unorderedLists = document.getElementsByTagName("li");
-  var animatedElements = [
-    { element: document.getElementById("profilePic"), animated: false },
+  var images = document.getElementsByTagName("img");
+  var elements = [
+    { element: document.getElementById("profile-pic"), animated: false },
   ];
-  for (p of paragraphs) {
-    animatedElements.push({ element: p, animated: false });
+  for (const p of paragraphs) {
+    elements.push({ element: p, animated: false });
   }
-  for (li of unorderedLists) {
-    animatedElements.push({ element: li, animated: false });
+  for (const li of unorderedLists) {
+    elements.push({ element: li, animated: false });
   }
-  return animatedElements;
-}
+  for (const image of images) {
+    elements.push({ element: image, animated: false });
+  }
+  return elements;
+};
 
-// Fade in text elements
-function fadeInElements(animatedElements) {
-  animatedElements.forEach(({ element, animated }, index) => {
+const fadeIn = (elements) => {
+  elements.forEach(({ element, animated }, index) => {
     if (!animated && element.getBoundingClientRect().top < window.innerHeight) {
-      animatedElements[index].animated = true;
+      elements[index].animated = true;
       element.animate(
         [
           {
@@ -56,7 +40,193 @@ function fadeInElements(animatedElements) {
       );
     }
   });
-}
+};
+
+const createExperiencesEffect = () => {
+  const experiences = document.getElementsByClassName("experience");
+
+  for (const mainExperience of experiences) {
+    const allListChildren = mainExperience.getElementsByTagName("ul");
+    for (const child of allListChildren) {
+      child.style.marginTop = `-${child.offsetHeight}px`;
+    }
+
+    mainExperience.addEventListener("mouseenter", () => {
+      mainExperience.animate(
+        [
+          {
+            width: `${100 - 10 * (experiences.length - 1)}%`,
+          },
+        ],
+        {
+          duration: 1000,
+          fill: "both",
+          easing: "ease-in-out",
+        }
+      );
+      const listChildren = mainExperience.getElementsByTagName("ul");
+      for (const child of listChildren) {
+        child.animate(
+          [
+            {
+              offset: 0.7,
+              opacity: 0,
+              marginTop: `-${child.offsetHeight}px`,
+              textWrap: "nowrap",
+            },
+            {
+              offset: 0.71,
+              opacity: 0,
+              marginTop: `-${child.offsetHeight}px`,
+              textWrap: "wrap",
+            },
+            {
+              opacity: 1,
+              marginTop: "30px",
+              textWrap: "wrap",
+            },
+          ],
+          {
+            duration: 1000,
+            fill: "both",
+            easing: "ease-in-out",
+          }
+        );
+      }
+      for (const otherExperience of experiences) {
+        if (
+          otherExperience.getAttribute("id") !==
+          mainExperience.getAttribute("id")
+        ) {
+          otherExperience.animate(
+            [
+              {
+                width: "10%",
+              },
+            ],
+            {
+              duration: 1000,
+              fill: "both",
+              easing: "ease-in-out",
+            }
+          );
+          const children = otherExperience.getElementsByTagName("p");
+          for (const child of children) {
+            child.animate(
+              [
+                {
+                  offset: 0.4,
+                  opacity: 0,
+                  height: "auto",
+                },
+                {
+                  offset: 0.41,
+                  opacity: 0,
+                  height: "0px",
+                },
+                {
+                  opacity: 0,
+                  height: "0px",
+                },
+              ],
+              {
+                duration: 1000,
+                fill: "both",
+                easing: "ease-in-out",
+              }
+            );
+          }
+        }
+      }
+    });
+    mainExperience.addEventListener("mouseleave", () => {
+      mainExperience.animate(
+        [
+          {
+            width: `${100 / experiences.length}%`,
+          },
+        ],
+        {
+          duration: 500,
+          fill: "both",
+          easing: "ease-out",
+        }
+      );
+      const listChildren = mainExperience.getElementsByTagName("ul");
+      for (const child of listChildren) {
+        console.log(child);
+        child.animate(
+          [
+            {
+              textWrap: "wrap",
+            },
+            {
+              offset: 0.3,
+              opacity: 0,
+              textWrap: "wrap",
+            },
+            {
+              offset: 0.31,
+              opacity: 0,
+              marginTop: `-${child.offsetHeight}px`,
+              textWrap: "nowrap",
+            },
+            {
+              opacity: 0,
+              marginTop: `-${child.offsetHeight}px`,
+              textWrap: "nowrap",
+            },
+          ],
+          {
+            duration: 500,
+            fill: "both",
+            easing: "ease-in-out",
+          }
+        );
+      }
+      for (const otherExperience of experiences) {
+        if (
+          otherExperience.getAttribute("id") !==
+          mainExperience.getAttribute("id")
+        ) {
+          otherExperience.animate(
+            [
+              {
+                width: `${100 / experiences.length}%`,
+              },
+            ],
+            {
+              duration: 500,
+              fill: "both",
+              easing: "ease-out",
+            }
+          );
+          const children = otherExperience.getElementsByTagName("p");
+          for (const child of children) {
+            child.animate(
+              [
+                {
+                  offset: 0.3,
+                  opacity: 0,
+                  height: "auto",
+                },
+                {
+                  opacity: 1,
+                  height: "auto",
+                },
+              ],
+              {
+                duration: 500,
+                fill: "both",
+                easing: "ease-in",
+              }
+            );
+          }
+        }
+      }
+    });
+  }
+};
 
 const projectList = [
   {
@@ -64,6 +234,7 @@ const projectList = [
     title: "Senior Year Project: FLYSMART",
     link: "https://github.com/HalaSaadeh/flysmart-ar-app",
     tags: ["Robotics", "Arduino", "AR", "Unity"],
+    hasGIF: true,
     description:
       "Wearable glove that controls a drone in an Augmented Reality environment using hand gestures.",
   },
@@ -72,6 +243,7 @@ const projectList = [
     title: "RoboCop",
     link: "https://github.com/Charbel199/robocop",
     tags: ["Robotics", "Raspberry Pi", "ML", "Fuzzy Logic"],
+    hasGIF: true,
     description:
       "Autonomous rover that chases a speeding car using object detection, ROS, and fuzzy logic.",
   },
@@ -80,6 +252,7 @@ const projectList = [
     title: "Sketch Follower",
     link: "https://github.com/khaledjalloul/sketch-follower_ros",
     tags: ["Robotics", "Gazebo", "Moveit", "C++"],
+    hasGIF: true,
     description:
       "A 2-DOF robot arm Gazebo simulation that mimics a drawn sketch using Moveit for inverse kinematics.",
   },
@@ -88,6 +261,7 @@ const projectList = [
     title: "ReactJS Snake Game",
     link: "https://github.com/khaledjalloul/snake-game_react",
     tags: ["ReactJS", "Path Finding"],
+    hasGIF: true,
     description:
       "The classic snake game recreated in ReactJS with an autosolve feature.",
   },
@@ -96,6 +270,7 @@ const projectList = [
     title: "Firefighter Robot",
     link: "https://github.com/khaledjalloul/mce-rover-project",
     tags: ["Robotics", "Raspberry Pi"],
+    hasGIF: true,
     description:
       "Four-wheel robot that detects a fire using heat sensors and attempts to put it out.",
   },
@@ -104,104 +279,89 @@ const projectList = [
     title: "University Carpooling Mobile Application",
     link: "https://github.com/hadiyouness10/drives_frontend",
     tags: ["React Native", "ExpressJS", "Google Maps API"],
+    hasGIF: false,
     description:
       "React Native mobile app that allows students to organize or join rides to their universities.",
   },
 ];
 
-var currentUI = "large";
-var currentProjectDiv = null;
-
-window.addEventListener("load", (event) => {
-  projects.style.display = "grid"; // Load project gifs
-  loading.style.display = "none";
-  wrapper.style.overflowX = "hidden";
-
-  if (window.innerWidth <= 800) currentUI = "small";
-  setLogoPositions();
-
-  var animatedElements = getTextElements();
-  fadeInElements(animatedElements);
-
-  wrapper.addEventListener("scroll", (event) =>
-    fadeInElements(animatedElements)
-  );
-
+const displayProjects = () => {
   const projectTitle = document.getElementById("project-title");
   const projectTags = document.getElementById("project-tags");
   const projectDescription = document.getElementById("project-description");
+
+  const projectsDiv = document.getElementById("projects");
+  const projectDetailsDiv = document.getElementById("project-details");
 
   projectList.forEach((project) => {
     const projectDiv = document.createElement("div");
     projectDiv.setAttribute("id", project.id);
     projectDiv.className = "project";
+    projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
+    if (!project.hasGIF) projectDiv.classList.add("project-static-background");
 
-    if (window.innerWidth > 800)
-      projectDiv.setAttribute(
-        "onclick",
-        `window.open('${project.link}', '_blank');`
-      );
+    projectDiv.addEventListener("mouseenter", () => {
+      const createdProjects = document.getElementsByClassName("project");
 
-    projectDiv.addEventListener("mouseover", () => {
-      projectTitle.innerText = project.title;
-      projectDescription.innerText = project.description;
+      if (project.hasGIF)
+        projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.gif")`;
 
-      projectTags.innerHTML = project.tags.map(
-        (tag) => `<p class="project-tag" style="opacity: 1">${tag}</p>`
-      );
-    });
-
-    // Require double pressing to redirect when on mobile
-    projectDiv.addEventListener("click", () => {
-      projectTitle.innerText = project.title;
-      projectDescription.innerText = project.description;
-
-      projectTags.innerHTML = project.tags.map(
-        (tag) => `<p class="project-tag" style="opacity: 1">${tag}</p>`
-      );
-
-      if (window.innerWidth <= 800 && currentProjectDiv !== projectDiv) {
-        if (currentProjectDiv) currentProjectDiv.removeAttribute("onclick");
-        currentProjectDiv = projectDiv;
-        projectDiv.setAttribute(
-          "onclick",
-          `window.open('${project.link}', '_blank');`
-        );
+      for (const createdProject of createdProjects) {
+        if (createdProject.getAttribute("id") !== project.id)
+          createdProject.classList.add("blur");
       }
+
+      const x = projectDiv.offsetLeft + projectDiv.offsetWidth / 2;
+      if (x < window.innerWidth / 2) {
+        projectDetailsDiv.style.right = 0;
+        projectDetailsDiv.style.left = "auto";
+      } else {
+        projectDetailsDiv.style.right = "auto";
+        projectDetailsDiv.style.left = 0;
+      }
+
+      projectTitle.innerText = project.title;
+      projectDescription.innerText = project.description;
+
+      projectTags.innerHTML = "";
+      const tags = project.tags.map((tag) => {
+        const tagP = document.createElement("p");
+        tagP.className = "project-tag";
+        tagP.innerHTML = tag;
+        return tagP;
+      });
+      for (const tag of tags) projectTags.appendChild(tag);
+
+      projectDetailsDiv.classList.add("visible");
     });
 
-    projects.appendChild(projectDiv);
-  });
+    projectDiv.addEventListener("mouseleave", () => {
+      const createdProjects = document.getElementsByClassName("project");
 
-  // Display first project's tags
-  projectList[0].tags.forEach((tag) => {
-    const tagP = document.createElement("p");
-    tagP.className = "project-tag";
-    tagP.innerHTML = tag;
+      if (project.hasGIF)
+        projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
 
-    projectTags.appendChild(tagP);
-    animatedElements.push({ element: tagP, animated: false });
-  });
+      for (const createdProject of createdProjects) {
+        if (createdProject.getAttribute("id") !== project.id)
+          createdProject.classList.remove("blur");
+      }
 
-  // Remove onclick attribute from projects when on mobile
-  window.addEventListener("resize", () => {
-    if (window.innerWidth <= 800 && currentUI === "large") {
-      currentUI = "small";
-      const projectDivs = document.getElementsByClassName("project");
-      Array.from(projectDivs).forEach((projectDiv, index) => {
-        projectDiv.removeAttribute("onclick");
-      });
-    } else if (window.innerWidth > 800 && currentUI === "small") {
-      currentUI = "large";
-      const projectDivs = document.getElementsByClassName("project");
-      Array.from(projectDivs).forEach((projectDiv, index) => {
-        projectDiv.setAttribute(
-          "onclick",
-          `window.open('${projectList[index].link}', '_blank');`
-        );
-      });
-    }
+      projectDetailsDiv.classList.remove("visible");
+    });
+
+    projectDiv.addEventListener("click", () => {
+      window.open(project.link, "_blank");
+    });
+
+    projectsDiv.appendChild(projectDiv);
   });
+};
+
+window.addEventListener("load", (event) => {
+  var fadeInElements = getFadeInElements();
+  fadeIn(fadeInElements);
+  wrapper.addEventListener("scroll", (event) => fadeIn(fadeInElements));
+
+  createExperiencesEffect();
+  displayProjects();
 });
-
-window.addEventListener("resize", setLogoPositions);
