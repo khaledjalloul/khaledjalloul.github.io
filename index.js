@@ -227,6 +227,28 @@ const createExperiencesEffect = () => {
   }
 };
 
+const resetExperiencesOnResize = () => {
+  window.addEventListener("resize", () => {
+    const experiences = document.getElementsByClassName("experience");
+
+    if (window.innerWidth < 992) {
+      for (const mainExperience of experiences) {
+        mainExperience.animate([{ width: "100%" }], {
+          duration: 10,
+          fill: "both",
+        });
+      }
+    } else {
+      for (const mainExperience of experiences) {
+        mainExperience.animate([{ width: `${100 / experiences.length}%` }], {
+          duration: 10,
+          fill: "both",
+        });
+      }
+    }
+  });
+};
+
 const projectList = [
   {
     id: "fyp",
@@ -302,8 +324,8 @@ const displayProjects = () => {
     projectDiv.addEventListener("mouseenter", () => {
       const createdProjects = document.getElementsByClassName("project");
 
-      if (project.hasGIF)
-        projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.gif")`;
+      // if (project.hasGIF)
+      //   projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.gif")`;
 
       for (const createdProject of createdProjects) {
         if (createdProject.getAttribute("id") !== project.id)
@@ -337,8 +359,8 @@ const displayProjects = () => {
     projectDiv.addEventListener("mouseleave", () => {
       const createdProjects = document.getElementsByClassName("project");
 
-      if (project.hasGIF)
-        projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
+      // if (project.hasGIF)
+      //   projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
 
       for (const createdProject of createdProjects) {
         if (createdProject.getAttribute("id") !== project.id)
@@ -364,24 +386,5 @@ window.addEventListener("load", (event) => {
 
   createExperiencesEffect();
   displayProjects();
-});
-
-window.addEventListener("resize", () => {
-  const experiences = document.getElementsByClassName("experience");
-
-  if (window.innerWidth < 992) {
-    for (const mainExperience of experiences) {
-      mainExperience.animate([{ width: "100%" }], {
-        duration: 10,
-        fill: "both",
-      });
-    }
-  } else {
-    for (const mainExperience of experiences) {
-      mainExperience.animate([{ width: `${100 / experiences.length}%` }], {
-        duration: 10,
-        fill: "both",
-      });
-    }
-  }
+  resetExperiencesOnResize();
 });
