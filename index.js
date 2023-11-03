@@ -46,11 +46,6 @@ const createExperiencesEffect = () => {
   const experiences = document.getElementsByClassName("experience");
 
   for (const mainExperience of experiences) {
-    const allListChildren = mainExperience.getElementsByTagName("ul");
-    for (const child of allListChildren) {
-      child.style.marginTop = `-${child.offsetHeight}px`;
-    }
-
     mainExperience.addEventListener("mouseenter", () => {
       mainExperience.animate(
         [
@@ -227,26 +222,57 @@ const createExperiencesEffect = () => {
   }
 };
 
+var currentSize = "";
+
 const resetExperiencesOnResize = () => {
-  window.addEventListener("resize", () => {
+  const resetExperiences = () => {
     const experiences = document.getElementsByClassName("experience");
 
-    if (window.innerWidth < 992) {
+    if (window.innerWidth < 992 && currentSize !== "sm") {
+      currentSize = "sm";
       for (const mainExperience of experiences) {
         mainExperience.animate([{ width: "100%" }], {
           duration: 10,
           fill: "both",
         });
+
+        const allListChildren = mainExperience.getElementsByTagName("ul");
+        for (const child of allListChildren) {
+          child.animate([{ marginTop: "30px", opacity: 1, textWrap: "wrap" }], {
+            duration: 10,
+            fill: "both",
+          });
+        }
       }
-    } else {
+    } else if (window.innerWidth >= 992 && currentSize !== "lg") {
+      currentSize = "lg";
       for (const mainExperience of experiences) {
         mainExperience.animate([{ width: `${100 / experiences.length}%` }], {
           duration: 10,
           fill: "both",
         });
+
+        const allListChildren = mainExperience.getElementsByTagName("ul");
+        for (const child of allListChildren) {
+          child.animate(
+            [
+              {
+                marginTop: `-${child.offsetHeight}px`,
+                opacity: 0,
+                textWrap: "nowrap",
+              },
+            ],
+            {
+              duration: 10,
+              fill: "both",
+            }
+          );
+        }
       }
     }
-  });
+  };
+  resetExperiences();
+  window.addEventListener("resize", resetExperiences);
 };
 
 const projectList = [
@@ -315,11 +341,24 @@ const displayProjects = () => {
   const projectDetailsDiv = document.getElementById("project-details");
 
   projectList.forEach((project) => {
+    const projectWrapperDiv = document.createElement("div");
+    projectWrapperDiv.className = "project-wrapper";
+
     const projectDiv = document.createElement("div");
     projectDiv.setAttribute("id", project.id);
     projectDiv.className = "project";
     projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
     if (!project.hasGIF) projectDiv.classList.add("project-static-background");
+
+    const smProjectDetailsDiv = document.createElement("div");
+    smProjectDetailsDiv.className = "sm-project-details";
+    const smProjectTitle = document.createElement("p");
+    smProjectTitle.innerHTML = project.title;
+    const smProjectDescription = document.createElement("p");
+    smProjectDescription.innerHTML = project.description;
+
+    smProjectDetailsDiv.appendChild(smProjectTitle);
+    smProjectDetailsDiv.appendChild(smProjectDescription);
 
     projectDiv.addEventListener("mouseenter", () => {
       const createdProjects = document.getElementsByClassName("project");
@@ -374,17 +413,19 @@ const displayProjects = () => {
       window.open(project.link, "_blank");
     });
 
-    projectsDiv.appendChild(projectDiv);
+    projectWrapperDiv.appendChild(projectDiv);
+    projectWrapperDiv.appendChild(smProjectDetailsDiv);
+    projectsDiv.appendChild(projectWrapperDiv);
   });
 };
 
 window.addEventListener("load", (event) => {
+  createExperiencesEffect();
+  displayProjects();
+  resetExperiencesOnResize();
+
   var fadeInElements = getFadeInElements();
   fadeIn(fadeInElements);
   window.addEventListener("scroll", (event) => fadeIn(fadeInElements));
   wrapper.addEventListener("scroll", (event) => fadeIn(fadeInElements));
-
-  createExperiencesEffect();
-  displayProjects();
-  resetExperiencesOnResize();
 });
