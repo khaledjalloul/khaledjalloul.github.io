@@ -1,3 +1,5 @@
+const html = String.raw;
+
 const getFadeInElements = () => {
   var paragraphs = document.getElementsByTagName("p");
   var unorderedLists = document.getElementsByTagName("li");
@@ -332,89 +334,84 @@ const projectList = [
   },
 ];
 
-const displayProjects = () => {
+const projectMouseEnter = (projectId) => {
+  const project = projectList.find((x) => x.id === projectId);
+  const projectDiv = document.getElementById(projectId);
+
   const projectTitle = document.getElementById("project-title");
   const projectTags = document.getElementById("project-tags");
   const projectDescription = document.getElementById("project-description");
-
-  const projectsDiv = document.getElementById("projects");
   const projectDetailsDiv = document.getElementById("project-details");
+  const createdProjects = document.getElementsByClassName("project");
 
+  for (const createdProject of createdProjects) {
+    if (createdProject.getAttribute("id") !== project.id)
+      createdProject.classList.add("blur");
+  }
+
+  const x = projectDiv.offsetLeft + projectDiv.offsetWidth / 2;
+  if (x < window.innerWidth / 2) {
+    projectDetailsDiv.style.right = 0;
+    projectDetailsDiv.style.left = "auto";
+  } else {
+    projectDetailsDiv.style.right = "auto";
+    projectDetailsDiv.style.left = 0;
+  }
+
+  projectTitle.innerText = project.title;
+  projectDescription.innerText = project.description;
+
+  projectTags.innerHTML = "";
+  const tags = project.tags.map((tag) => {
+    const tagP = document.createElement("p");
+    tagP.className = "project-tag";
+    tagP.innerHTML = tag;
+    return tagP;
+  });
+  for (const tag of tags) projectTags.appendChild(tag);
+
+  projectDetailsDiv.classList.add("visible");
+};
+
+const projectMouseLeave = (projectId) => {
+  const project = projectList.find((x) => x.id === projectId);
+
+  const projectDetailsDiv = document.getElementById("project-details");
+  const createdProjects = document.getElementsByClassName("project");
+
+  for (const createdProject of createdProjects) {
+    if (createdProject.getAttribute("id") !== project.id)
+      createdProject.classList.remove("blur");
+  }
+
+  projectDetailsDiv.classList.remove("visible");
+};
+
+const projectClick = (projectId) => {
+  const project = projectList.find((x) => x.id === projectId);
+  window.open(project.link, "_blank");
+};
+
+const displayProjects = () => {
+  const projectsDiv = document.getElementById("projects");
   projectList.forEach((project) => {
     const projectWrapperDiv = document.createElement("div");
     projectWrapperDiv.className = "project-wrapper";
+    projectWrapperDiv.innerHTML = html`
+      <div
+        id=${project.id}
+        class="project"
+        style="background-image: url('./assets/projects/${project.id}.jpg')"
+        onmouseenter="projectMouseEnter('${project.id}')"
+        onmouseleave="projectMouseLeave('${project.id}')"
+        onclick="projectClick('${project.id}')"
+      ></div>
+      <div class="sm-project-details">
+        <p>${project.title}</p>
+        <p>${project.description}</p>
+      </div>
+    `;
 
-    const projectDiv = document.createElement("div");
-    projectDiv.setAttribute("id", project.id);
-    projectDiv.className = "project";
-    projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
-    if (!project.hasGIF) projectDiv.classList.add("project-static-background");
-
-    const smProjectDetailsDiv = document.createElement("div");
-    smProjectDetailsDiv.className = "sm-project-details";
-    const smProjectTitle = document.createElement("p");
-    smProjectTitle.innerHTML = project.title;
-    const smProjectDescription = document.createElement("p");
-    smProjectDescription.innerHTML = project.description;
-
-    smProjectDetailsDiv.appendChild(smProjectTitle);
-    smProjectDetailsDiv.appendChild(smProjectDescription);
-
-    projectDiv.addEventListener("mouseenter", () => {
-      const createdProjects = document.getElementsByClassName("project");
-
-      // if (project.hasGIF)
-      //   projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.gif")`;
-
-      for (const createdProject of createdProjects) {
-        if (createdProject.getAttribute("id") !== project.id)
-          createdProject.classList.add("blur");
-      }
-
-      const x = projectDiv.offsetLeft + projectDiv.offsetWidth / 2;
-      if (x < window.innerWidth / 2) {
-        projectDetailsDiv.style.right = 0;
-        projectDetailsDiv.style.left = "auto";
-      } else {
-        projectDetailsDiv.style.right = "auto";
-        projectDetailsDiv.style.left = 0;
-      }
-
-      projectTitle.innerText = project.title;
-      projectDescription.innerText = project.description;
-
-      projectTags.innerHTML = "";
-      const tags = project.tags.map((tag) => {
-        const tagP = document.createElement("p");
-        tagP.className = "project-tag";
-        tagP.innerHTML = tag;
-        return tagP;
-      });
-      for (const tag of tags) projectTags.appendChild(tag);
-
-      projectDetailsDiv.classList.add("visible");
-    });
-
-    projectDiv.addEventListener("mouseleave", () => {
-      const createdProjects = document.getElementsByClassName("project");
-
-      // if (project.hasGIF)
-      //   projectDiv.style.backgroundImage = `url("./assets/projects/${project.id}.jpg")`;
-
-      for (const createdProject of createdProjects) {
-        if (createdProject.getAttribute("id") !== project.id)
-          createdProject.classList.remove("blur");
-      }
-
-      projectDetailsDiv.classList.remove("visible");
-    });
-
-    projectDiv.addEventListener("click", () => {
-      window.open(project.link, "_blank");
-    });
-
-    projectWrapperDiv.appendChild(projectDiv);
-    projectWrapperDiv.appendChild(smProjectDetailsDiv);
     projectsDiv.appendChild(projectWrapperDiv);
   });
 };
