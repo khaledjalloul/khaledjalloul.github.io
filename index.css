@@ -208,6 +208,7 @@
       url("./assets/experience/dox.png");
     background-attachment: fixed;
     background-position: center;
+    background-repeat: no-repeat;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
   }

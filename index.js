@@ -279,58 +279,58 @@ const resetExperiencesOnResize = () => {
 
 const projectList = [
   {
-    id: "fyp",
-    title: "Senior Year Project: FLYSMART",
-    link: "https://github.com/HalaSaadeh/flysmart-ar-app",
-    tags: ["Robotics", "Arduino", "AR", "Unity"],
-    hasGIF: true,
+    id: "sketch-follower",
+    title: "Sketch Follower",
+    link: "https://github.com/khaledjalloul/sketch-follower_ros",
+    tags: ["Robotics", "Gazebo", "Moveit", "Python"],
     description:
-      "Wearable glove that controls a drone in an Augmented Reality environment using hand gestures.",
+      "A 4-DOF robot arm Gazebo simulation created to learn CAD modeling, inverse kinematics, and ROS Control.",
+    img: "sketch-follower.png",
   },
   {
     id: "robocop",
     title: "RoboCop",
     link: "https://github.com/Charbel199/robocop",
-    tags: ["Robotics", "Raspberry Pi", "ML", "Fuzzy Logic"],
-    hasGIF: true,
+    tags: ["Robotics", "Raspberry Pi", "Computer Vision", "Fuzzy Logic"],
     description:
       "Autonomous rover that chases a speeding car using object detection, ROS, and fuzzy logic.",
+    img: "robocop.jpg",
   },
   {
-    id: "sketch-follower",
-    title: "Sketch Follower",
-    link: "https://github.com/khaledjalloul/sketch-follower_ros",
-    tags: ["Robotics", "Gazebo", "Moveit", "C++"],
-    hasGIF: true,
+    id: "fyp",
+    title: "Bachelor Senior Year Project: FLYSMART",
+    link: "https://github.com/HalaSaadeh/flysmart-ar-app",
+    tags: ["Robotics", "Arduino", "AR", "Unity"],
     description:
-      "A 2-DOF robot arm Gazebo simulation that mimics a drawn sketch using Moveit for inverse kinematics.",
+      "Wearable glove that controls a drone in an Augmented Reality environment using hand gestures.",
+    img: "fyp.jpg",
   },
   {
-    id: "snake-game",
-    title: "ReactJS Snake Game",
-    link: "https://github.com/khaledjalloul/snake-game_react",
-    tags: ["ReactJS", "Path Finding"],
-    hasGIF: true,
+    id: "rrt-star-dubins",
+    title: "RRT* Dubins Path Planning",
+    link: "https://github.com/khaledjalloul/rrt-star-dubins",
+    tags: ["Path Planning", "Python"],
     description:
-      "The classic snake game recreated in ReactJS with an autosolve feature.",
+      "Path planner that uses the RRT* algorithm to obtain a Dubins path while avoiding static obstacles.",
+    img: "rrt-star-dubins.png",
   },
   {
     id: "firefighter-robot",
     title: "Firefighter Robot",
     link: "https://github.com/khaledjalloul/mce-rover-project",
     tags: ["Robotics", "Raspberry Pi"],
-    hasGIF: true,
     description:
       "Four-wheel robot that detects a fire using heat sensors and attempts to put it out.",
+    img: "firefighter-robot.jpg",
   },
   {
-    id: "khedne-maak",
-    title: "University Carpooling Mobile Application",
-    link: "https://github.com/hadiyouness10/drives_frontend",
-    tags: ["React Native", "ExpressJS", "Google Maps API"],
-    hasGIF: false,
+    id: "snake-game",
+    title: "ReactJS Snake Game",
+    link: "https://github.com/khaledjalloul/snake-game_react",
+    tags: ["ReactJS", "Path Finding"],
     description:
-      "React Native mobile app that allows students to organize or join rides to their universities.",
+      "The classic snake game recreated in ReactJS with an autosolve feature.",
+    img: "snake-game.jpg",
   },
 ];
 
@@ -401,7 +401,7 @@ const displayProjects = () => {
       <div
         id=${project.id}
         class="project"
-        style="background-image: url('./assets/projects/${project.id}.jpg')"
+        style="background-image: url('./assets/projects/${project.img}')"
         onmouseenter="projectMouseEnter('${project.id}')"
         onmouseleave="projectMouseLeave('${project.id}')"
         onclick="projectClick('${project.id}')"
